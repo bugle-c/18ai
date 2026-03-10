@@ -292,7 +292,7 @@ export default function Home() {
             Дресс-код
           </span>
           <h2 className="mt-4 font-['Syne'] text-3xl font-bold md:text-5xl">
-            Фестивальный стиль
+            Smart Casual
           </h2>
         </div>
 
@@ -303,14 +303,11 @@ export default function Home() {
             <h3 className="font-['Syne'] text-lg md:text-xl font-bold uppercase tracking-wider">Мужчинам</h3>
             <div className="h-px flex-1 bg-[var(--border)]" />
           </div>
-          <p className="text-center text-sm md:text-base text-zinc-400 mb-6 md:mb-8 max-w-lg mx-auto">
-            Пиджак с рубашкой, галстук по желанию. Нарядный, но не официальный — фестивальный дух.
-          </p>
           <div className="photo-scroll md:grid-cols-3 md:gap-4">
             {[
-              { src: "/dresscode/man-blazer.jpg", label: "Пиджак + рубашка" },
-              { src: "/dresscode/man-shirt.jpg", label: "Smart casual" },
-              { src: "/dresscode/man-smart.jpg", label: "Элегантный стиль" },
+              { src: "/dresscode/man-1.jpg", label: "Smart casual" },
+              { src: "/dresscode/man-2.jpg", label: "Smart casual" },
+              { src: "/dresscode/man-3.jpg", label: "Smart casual" },
             ].map((item, i) => (
               <div key={i} className="group relative w-[70vw] md:w-auto h-[280px] md:h-[360px] overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card-bg)]">
                 <Image
@@ -320,12 +317,6 @@ export default function Home() {
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                   sizes="(max-width: 768px) 70vw, 33vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <span className="inline-block rounded-full border border-[var(--accent)]/40 bg-black/60 px-3 py-1 text-xs font-medium text-[var(--accent)] backdrop-blur-sm">
-                    {item.label}
-                  </span>
-                </div>
               </div>
             ))}
           </div>
@@ -338,14 +329,11 @@ export default function Home() {
             <h3 className="font-['Syne'] text-lg md:text-xl font-bold uppercase tracking-wider">Женщинам</h3>
             <div className="h-px flex-1 bg-[var(--border)]" />
           </div>
-          <p className="text-center text-sm md:text-base text-zinc-400 mb-6 md:mb-8 max-w-lg mx-auto">
-            Элегантный верх с юбкой/брюками или коктейльное платье. Спортивный стиль — нет, sport-casual — допустим.
-          </p>
           <div className="photo-scroll md:grid-cols-3 md:gap-4">
             {[
-              { src: "/dresscode/woman-dress.jpg", label: "Коктейльное платье" },
-              { src: "/dresscode/woman-elegant.jpg", label: "Элегантный образ" },
-              { src: "/dresscode/woman-smart.jpg", label: "Smart casual" },
+              { src: "/dresscode/woman-1.jpg", label: "Smart casual" },
+              { src: "/dresscode/woman-2.jpg", label: "Smart casual" },
+              { src: "/dresscode/woman-3.jpg", label: "Smart casual" },
             ].map((item, i) => (
               <div key={i} className="group relative w-[70vw] md:w-auto h-[280px] md:h-[360px] overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card-bg)]">
                 <Image
@@ -355,21 +343,9 @@ export default function Home() {
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                   sizes="(max-width: 768px) 70vw, 33vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <span className="inline-block rounded-full border border-[var(--accent)]/40 bg-black/60 px-3 py-1 text-xs font-medium text-[var(--accent)] backdrop-blur-sm">
-                    {item.label}
-                  </span>
-                </div>
               </div>
             ))}
           </div>
-        </div>
-
-        {/* No-go hint */}
-        <div className="reveal mt-12 flex items-center justify-center gap-3 text-sm text-zinc-600">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-red-500/60"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93l14.14 14.14"/></svg>
-          <span>Спортивная одежда, кроссовки, шорты — не подходят</span>
         </div>
       </section>
 
