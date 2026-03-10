@@ -183,12 +183,12 @@ export default function Home() {
       </div>
 
       {/* ───── О МЕРОПРИЯТИИ ───── */}
-      <section className="relative z-10 mx-auto max-w-5xl px-6 py-32">
+      <section className="relative z-10 mx-auto max-w-5xl px-6 py-16 md:py-32">
         <div className="reveal">
           <span className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--accent)]">
             О мероприятии
           </span>
-          <h2 className="mt-4 font-['Syne'] text-4xl font-bold md:text-5xl">
+          <h2 className="mt-4 font-['Syne'] text-3xl font-bold md:text-5xl">
             Первая конференция
             <br />
             <span className="text-[var(--accent)]">по нейросетям</span>
@@ -202,7 +202,7 @@ export default function Home() {
         </div>
 
         {/* Stats */}
-        <div className="reveal mt-16 grid grid-cols-2 gap-4 md:grid-cols-4">
+        <div className="reveal mt-10 md:mt-16 grid grid-cols-2 gap-3 md:gap-4 md:grid-cols-4">
           {[
             { value: "3", label: "Спикера" },
             { value: "4", label: "Выступления" },
@@ -211,7 +211,7 @@ export default function Home() {
           ].map((stat) => (
             <div
               key={stat.label}
-              className="rounded-2xl border border-[var(--border)] bg-[var(--card-bg)] p-6 text-center"
+              className="rounded-2xl border border-[var(--border)] bg-[var(--card-bg)] p-4 md:p-6 text-center"
             >
               <div className="font-['Syne'] text-3xl font-bold text-[var(--accent)]">
                 {stat.value}
@@ -223,21 +223,21 @@ export default function Home() {
       </section>
 
       {/* ───── СПИКЕРЫ ───── */}
-      <section className="relative z-10 mx-auto max-w-5xl px-6 py-32">
+      <section className="relative z-10 mx-auto max-w-5xl px-6 py-16 md:py-32">
         <div className="reveal">
           <span className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--accent)]">
             Спикеры
           </span>
-          <h2 className="mt-4 font-['Syne'] text-4xl font-bold md:text-5xl">
+          <h2 className="mt-4 font-['Syne'] text-3xl font-bold md:text-5xl">
             Кто выступал
           </h2>
         </div>
 
-        <div className="mt-16 grid gap-6 md:grid-cols-3">
+        <div className="mt-10 md:mt-16 grid gap-4 md:gap-6 md:grid-cols-3">
           {SPEAKERS.map((s, i) => (
             <div
               key={i}
-              className="reveal speaker-card rounded-2xl border border-[var(--border)] bg-[var(--card-bg)] p-8"
+              className="reveal speaker-card rounded-2xl border border-[var(--border)] bg-[var(--card-bg)] p-5 md:p-8"
             >
               <div className="mb-4 inline-block rounded-full bg-[var(--accent)]/10 px-3 py-1 text-xs font-medium text-[var(--accent)]">
                 {s.time}
@@ -254,17 +254,17 @@ export default function Home() {
       </section>
 
       {/* ───── ПРОГРАММА (Timeline) ───── */}
-      <section className="relative z-10 mx-auto max-w-3xl px-6 py-32">
+      <section className="relative z-10 mx-auto max-w-3xl px-6 py-16 md:py-32">
         <div className="reveal">
           <span className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--accent)]">
             Программа
           </span>
-          <h2 className="mt-4 font-['Syne'] text-4xl font-bold md:text-5xl">
+          <h2 className="mt-4 font-['Syne'] text-3xl font-bold md:text-5xl">
             Расписание
           </h2>
         </div>
 
-        <div className="reveal mt-16 relative">
+        <div className="reveal mt-10 md:mt-16 relative">
           {/* Vertical line */}
           <div className="absolute left-[19px] top-2 bottom-2 w-px bg-gradient-to-b from-[var(--accent)] via-[var(--border)] to-transparent" />
 
@@ -275,10 +275,10 @@ export default function Home() {
                   <div className="timeline-dot h-[10px] w-[10px] rounded-full bg-[var(--accent)] mt-1.5 ml-[14px]" />
                 </div>
                 <div className="flex flex-col sm:flex-row sm:items-baseline sm:gap-4">
-                  <span className="font-['Syne'] text-lg font-bold text-[var(--accent)] min-w-[60px]">
+                  <span className="font-['Syne'] text-base md:text-lg font-bold text-[var(--accent)] min-w-[55px] md:min-w-[60px]">
                     {item.time}
                   </span>
-                  <span className="text-zinc-300">{item.label}</span>
+                  <span className="text-sm md:text-base text-zinc-300">{item.label}</span>
                 </div>
               </div>
             ))}
@@ -287,33 +287,33 @@ export default function Home() {
       </section>
 
       {/* ───── ДРЕСС-КОД ───── */}
-      <section className="relative z-10 mx-auto max-w-6xl px-6 py-32">
+      <section className="relative z-10 mx-auto max-w-6xl px-6 py-16 md:py-32">
         <div className="reveal">
           <span className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--accent)]">
             Дресс-код
           </span>
-          <h2 className="mt-4 font-['Syne'] text-4xl font-bold md:text-5xl">
+          <h2 className="mt-4 font-['Syne'] text-3xl font-bold md:text-5xl">
             Фестивальный стиль
           </h2>
         </div>
 
         {/* Men */}
-        <div className="reveal mt-16">
+        <div className="reveal mt-10 md:mt-16">
           <div className="flex items-center gap-3 mb-6">
             <div className="h-px flex-1 bg-[var(--border)]" />
-            <h3 className="font-['Syne'] text-xl font-bold uppercase tracking-wider">Мужчинам</h3>
+            <h3 className="font-['Syne'] text-lg md:text-xl font-bold uppercase tracking-wider">Мужчинам</h3>
             <div className="h-px flex-1 bg-[var(--border)]" />
           </div>
-          <p className="text-center text-zinc-400 mb-8 max-w-lg mx-auto">
+          <p className="text-center text-sm md:text-base text-zinc-400 mb-6 md:mb-8 max-w-lg mx-auto">
             Пиджак с рубашкой, галстук по желанию. Нарядный, но не официальный — фестивальный дух.
           </p>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
             {[
               { src: "/dresscode/man-blazer.jpg", label: "Пиджак + рубашка" },
               { src: "/dresscode/man-shirt.jpg", label: "Smart casual" },
               { src: "/dresscode/man-smart.jpg", label: "Элегантный стиль" },
             ].map((item, i) => (
-              <div key={i} className="group relative h-[380px] overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card-bg)]">
+              <div key={i} className="group relative h-[220px] sm:h-[320px] md:h-[380px] overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card-bg)]">
                 <Image
                   src={item.src}
                   alt={item.label}
@@ -333,22 +333,22 @@ export default function Home() {
         </div>
 
         {/* Women */}
-        <div className="reveal mt-16">
+        <div className="reveal mt-10 md:mt-16">
           <div className="flex items-center gap-3 mb-6">
             <div className="h-px flex-1 bg-[var(--border)]" />
-            <h3 className="font-['Syne'] text-xl font-bold uppercase tracking-wider">Женщинам</h3>
+            <h3 className="font-['Syne'] text-lg md:text-xl font-bold uppercase tracking-wider">Женщинам</h3>
             <div className="h-px flex-1 bg-[var(--border)]" />
           </div>
-          <p className="text-center text-zinc-400 mb-8 max-w-lg mx-auto">
+          <p className="text-center text-sm md:text-base text-zinc-400 mb-6 md:mb-8 max-w-lg mx-auto">
             Элегантный верх с юбкой/брюками или коктейльное платье. Спортивный стиль — нет, sport-casual — допустим.
           </p>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
             {[
               { src: "/dresscode/woman-dress.jpg", label: "Коктейльное платье" },
               { src: "/dresscode/woman-elegant.jpg", label: "Элегантный образ" },
               { src: "/dresscode/woman-smart.jpg", label: "Smart casual" },
             ].map((item, i) => (
-              <div key={i} className="group relative h-[380px] overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card-bg)]">
+              <div key={i} className="group relative h-[220px] sm:h-[320px] md:h-[380px] overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card-bg)]">
                 <Image
                   src={item.src}
                   alt={item.label}
@@ -375,15 +375,15 @@ export default function Home() {
       </section>
 
       {/* ───── ПЛОЩАДКА ───── */}
-      <section className="relative z-10 mx-auto max-w-5xl px-6 py-32">
+      <section className="relative z-10 mx-auto max-w-5xl px-6 py-16 md:py-32">
         <div className="reveal">
           <span className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--accent)]">
             Площадка
           </span>
-          <h2 className="mt-4 font-['Syne'] text-4xl font-bold md:text-5xl">
+          <h2 className="mt-4 font-['Syne'] text-3xl font-bold md:text-5xl">
             Калибр
           </h2>
-          <div className="mt-8 rounded-2xl border border-[var(--border)] bg-[var(--card-bg)] p-8">
+          <div className="mt-6 md:mt-8 rounded-2xl border border-[var(--border)] bg-[var(--card-bg)] p-5 md:p-8">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div>
                 <p className="text-zinc-300">
@@ -411,21 +411,21 @@ export default function Home() {
       </section>
 
       {/* ───── ФОТОГРАФИИ ───── */}
-      <section className="relative z-10 mx-auto max-w-6xl px-6 py-32">
+      <section className="relative z-10 mx-auto max-w-6xl px-6 py-16 md:py-32">
         <div className="reveal">
           <span className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--accent)]">
             Фотографии
           </span>
-          <h2 className="mt-4 font-['Syne'] text-4xl font-bold md:text-5xl">
+          <h2 className="mt-4 font-['Syne'] text-3xl font-bold md:text-5xl">
             Как это было
           </h2>
         </div>
 
-        <div className="reveal mt-16 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 auto-rows-[250px]">
+        <div className="reveal mt-10 md:mt-16 grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-4 auto-rows-[150px] sm:auto-rows-[200px] lg:auto-rows-[250px]">
           {PHOTOS.map((photo, i) => (
             <div
               key={i}
-              className={`group relative overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card-bg)] transition-all hover:border-[var(--accent)]/50 ${photo.span}`}
+              className={`group relative overflow-hidden rounded-xl md:rounded-2xl border border-[var(--border)] bg-[var(--card-bg)] transition-all hover:border-[var(--accent)]/50 ${photo.span}`}
             >
               <Image
                 src={photo.src}
@@ -442,8 +442,8 @@ export default function Home() {
       {/* ───── FOOTER ───── */}
       <footer className="relative z-10 border-t border-[var(--border)] py-12 text-center">
         <div className="mx-auto max-w-5xl px-6">
-          <div className="rounded-2xl border border-[var(--accent)]/20 bg-[var(--accent)]/5 p-8 mb-12">
-            <p className="font-['Syne'] text-2xl font-bold">
+          <div className="rounded-2xl border border-[var(--accent)]/20 bg-[var(--accent)]/5 p-5 md:p-8 mb-8 md:mb-12">
+            <p className="font-['Syne'] text-xl md:text-2xl font-bold">
               Мероприятие состоялось 18 июля 2023
             </p>
             <p className="mt-2 text-zinc-500">
