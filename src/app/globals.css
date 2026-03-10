@@ -1,0 +1,112 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #f4f4f5;
+  --accent: #FF4F00;
+  --card-bg: rgba(24, 24, 27, 0.6);
+  --border: rgba(255, 255, 255, 0.1);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent);
+  color: white;
+}
+
+/* Noise overlay */
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* Marquee */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 20s linear infinite;
+}
+
+/* Glow effect */
+.hero-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  opacity: 0.08;
+  filter: blur(90px);
+  pointer-events: none;
+}
+
+/* Section reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* Archive badge pulse */
+@keyframes pulse-border {
+  0%, 100% { border-color: var(--accent); }
+  50% { border-color: rgba(255, 79, 0, 0.3); }
+}
+.archive-badge {
+  animation: pulse-border 3s ease-in-out infinite;
+}
+
+/* Speaker card hover */
+.speaker-card {
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+.speaker-card:hover {
+  border-color: rgba(255, 79, 0, 0.4);
+  transform: translateY(-4px);
+}
+
+/* Timeline line glow */
+.timeline-dot {
+  box-shadow: 0 0 12px var(--accent);
+}
