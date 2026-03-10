@@ -455,12 +455,7 @@ export default function Home() {
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-              <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-                <p className="text-sm font-medium text-white drop-shadow-lg">
-                  {photo.caption}
-                </p>
-              </div>
+              <div className="absolute inset-0 bg-black/10 transition-opacity duration-300 group-hover:bg-black/0" />
             </button>
           ))}
         </div>
@@ -499,9 +494,8 @@ export default function Home() {
               className="max-h-[85vh] w-auto rounded-lg object-contain"
               priority
             />
-            <p className="mt-4 text-center text-sm text-zinc-400">
-              {PHOTOS[lightbox].caption}
-              <span className="ml-2 text-zinc-600">{lightbox + 1} / {PHOTOS.length}</span>
+            <p className="mt-4 text-center text-sm text-zinc-600">
+              {lightbox + 1} / {PHOTOS.length}
             </p>
           </div>
         </div>
