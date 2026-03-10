@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
@@ -64,26 +64,6 @@ const PHOTOS = [
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
-  const [lightbox, setLightbox] = useState<number | null>(null);
-
-  const closeLightbox = useCallback(() => setLightbox(null), []);
-  const prevPhoto = useCallback(() => setLightbox((p) => (p !== null ? (p - 1 + PHOTOS.length) % PHOTOS.length : null)), []);
-  const nextPhoto = useCallback(() => setLightbox((p) => (p !== null ? (p + 1) % PHOTOS.length : null)), []);
-
-  useEffect(() => {
-    if (lightbox === null) return;
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") closeLightbox();
-      if (e.key === "ArrowLeft") prevPhoto();
-      if (e.key === "ArrowRight") nextPhoto();
-    };
-    window.addEventListener("keydown", handleKey);
-    document.body.style.overflow = "hidden";
-    return () => {
-      window.removeEventListener("keydown", handleKey);
-      document.body.style.overflow = "";
-    };
-  }, [lightbox, closeLightbox, prevPhoto, nextPhoto]);
 
   useEffect(() => {
     // Hero text animation
@@ -443,10 +423,9 @@ export default function Home() {
 
         <div className="reveal mt-16 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 auto-rows-[250px]">
           {PHOTOS.map((photo, i) => (
-            <button
+            <div
               key={i}
-              onClick={() => setLightbox(i)}
-              className={`group relative overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card-bg)] transition-all hover:border-[var(--accent)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/50 ${photo.span}`}
+              className={`group relative overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card-bg)] transition-all hover:border-[var(--accent)]/50 ${photo.span}`}
             >
               <Image
                 src={photo.src}
@@ -455,51 +434,10 @@ export default function Home() {
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
               />
-              <div className="absolute inset-0 bg-black/10 transition-opacity duration-300 group-hover:bg-black/0" />
-            </button>
+            </div>
           ))}
         </div>
       </section>
-
-      {/* ───── LIGHTBOX ───── */}
-      {lightbox !== null && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
-          onClick={closeLightbox}
-        >
-          <button
-            onClick={(e) => { e.stopPropagation(); prevPhoto(); }}
-            className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-black/50 p-3 text-white transition-colors hover:bg-white/10 z-10"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6"/></svg>
-          </button>
-          <button
-            onClick={(e) => { e.stopPropagation(); nextPhoto(); }}
-            className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-black/50 p-3 text-white transition-colors hover:bg-white/10 z-10"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
-          </button>
-          <button
-            onClick={closeLightbox}
-            className="absolute top-4 right-4 rounded-full border border-white/20 bg-black/50 p-3 text-white transition-colors hover:bg-white/10 z-10"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
-          </button>
-          <div className="relative max-h-[85vh] max-w-[90vw]" onClick={(e) => e.stopPropagation()}>
-            <Image
-              src={PHOTOS[lightbox].src}
-              alt={PHOTOS[lightbox].alt}
-              width={1200}
-              height={900}
-              className="max-h-[85vh] w-auto rounded-lg object-contain"
-              priority
-            />
-            <p className="mt-4 text-center text-sm text-zinc-600">
-              {lightbox + 1} / {PHOTOS.length}
-            </p>
-          </div>
-        </div>
-      )}
 
       {/* ───── FOOTER ───── */}
       <footer className="relative z-10 border-t border-[var(--border)] py-12 text-center">
