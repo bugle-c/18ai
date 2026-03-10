@@ -303,6 +303,9 @@ export default function Home() {
             <h3 className="font-['Syne'] text-lg md:text-xl font-bold uppercase tracking-wider">Мужчинам</h3>
             <div className="h-px flex-1 bg-[var(--border)]" />
           </div>
+          <p className="text-center text-sm md:text-base text-zinc-400 mb-6 md:mb-8 max-w-lg mx-auto">
+            Чиносы или брюки, рубашка или поло, пиджак по желанию. Аккуратно, но без галстука — расслабленная элегантность.
+          </p>
           <div className="photo-scroll md:grid-cols-3 md:gap-4">
             {[
               { src: "/dresscode/man-1.jpg", label: "Smart casual" },
@@ -329,6 +332,9 @@ export default function Home() {
             <h3 className="font-['Syne'] text-lg md:text-xl font-bold uppercase tracking-wider">Женщинам</h3>
             <div className="h-px flex-1 bg-[var(--border)]" />
           </div>
+          <p className="text-center text-sm md:text-base text-zinc-400 mb-6 md:mb-8 max-w-lg mx-auto">
+            Блузка или топ с брюками/юбкой, платье-миди — стильно и комфортно. Каблук не обязателен, чистые кеды допустимы.
+          </p>
           <div className="photo-scroll md:grid-cols-3 md:gap-4">
             {[
               { src: "/dresscode/woman-1.jpg", label: "Smart casual" },
