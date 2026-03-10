@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -45,9 +46,38 @@ const SCHEDULE = [
   { time: "20:30", label: "Свободное общение" },
 ];
 
+const PHOTOS = [
+  { src: "/photos/group.jpg", alt: "Общее фото участников конференции", caption: "Участники «Навстречу к AI»" },
+  { src: "/photos/pasha-speaking.jpg", alt: "Паша Вин выступает на сцене", caption: "Паша Вин — введение в нейросети" },
+  { src: "/photos/online-speakers.jpg", alt: "Онлайн-выступление Санжара и Тимура", caption: "Санжар и Тимур — Midjourney + ChatGPT" },
+  { src: "/photos/midjourney-talk.jpg", alt: "Презентация про MidJourney промпты", caption: "Контент-план от ChatGPT для MidJourney" },
+  { src: "/photos/filipp-speaking.jpg", alt: "Филипп Воронин выступает", caption: "Филипп Воронин — практикум ChatGPT" },
+  { src: "/photos/workshop.jpg", alt: "Воркшоп на конференции", caption: "Воркшоп и нетворкинг" },
+];
+
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
+  const [lightbox, setLightbox] = useState<number | null>(null);
+
+  const closeLightbox = useCallback(() => setLightbox(null), []);
+  const prevPhoto = useCallback(() => setLightbox((p) => (p !== null ? (p - 1 + PHOTOS.length) % PHOTOS.length : null)), []);
+  const nextPhoto = useCallback(() => setLightbox((p) => (p !== null ? (p + 1) % PHOTOS.length : null)), []);
+
+  useEffect(() => {
+    if (lightbox === null) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") prevPhoto();
+      if (e.key === "ArrowRight") nextPhoto();
+    };
+    window.addEventListener("keydown", handleKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", handleKey);
+      document.body.style.overflow = "";
+    };
+  }, [lightbox, closeLightbox, prevPhoto, nextPhoto]);
 
   useEffect(() => {
     // Hero text animation
@@ -333,6 +363,81 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ───── ФОТОГРАФИИ ───── */}
+      <section className="relative z-10 mx-auto max-w-6xl px-6 py-32">
+        <div className="reveal">
+          <span className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--accent)]">
+            Фотографии
+          </span>
+          <h2 className="mt-4 font-['Syne'] text-4xl font-bold md:text-5xl">
+            Как это было
+          </h2>
+        </div>
+
+        <div className="reveal mt-16 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {PHOTOS.map((photo, i) => (
+            <button
+              key={i}
+              onClick={() => setLightbox(i)}
+              className="group relative aspect-[4/3] overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card-bg)] transition-all hover:border-[var(--accent)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/50"
+            >
+              <Image
+                src={photo.src}
+                alt={photo.alt}
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <p className="absolute bottom-4 left-4 right-4 text-sm font-medium text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                {photo.caption}
+              </p>
+            </button>
+          ))}
+        </div>
+      </section>
+
+      {/* ───── LIGHTBOX ───── */}
+      {lightbox !== null && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
+          onClick={closeLightbox}
+        >
+          <button
+            onClick={(e) => { e.stopPropagation(); prevPhoto(); }}
+            className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-black/50 p-3 text-white transition-colors hover:bg-white/10 z-10"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button
+            onClick={(e) => { e.stopPropagation(); nextPhoto(); }}
+            className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-black/50 p-3 text-white transition-colors hover:bg-white/10 z-10"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+          <button
+            onClick={closeLightbox}
+            className="absolute top-4 right-4 rounded-full border border-white/20 bg-black/50 p-3 text-white transition-colors hover:bg-white/10 z-10"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+          <div className="relative max-h-[85vh] max-w-[90vw]" onClick={(e) => e.stopPropagation()}>
+            <Image
+              src={PHOTOS[lightbox].src}
+              alt={PHOTOS[lightbox].alt}
+              width={1200}
+              height={900}
+              className="max-h-[85vh] w-auto rounded-lg object-contain"
+              priority
+            />
+            <p className="mt-4 text-center text-sm text-zinc-400">
+              {PHOTOS[lightbox].caption}
+              <span className="ml-2 text-zinc-600">{lightbox + 1} / {PHOTOS.length}</span>
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* ───── FOOTER ───── */}
       <footer className="relative z-10 border-t border-[var(--border)] py-12 text-center">
