@@ -183,7 +183,7 @@ export default function Home() {
       </div>
 
       {/* ───── О МЕРОПРИЯТИИ ───── */}
-      <section className="relative z-10 mx-auto max-w-5xl px-6 py-16 md:py-32">
+      <section className="relative z-10 mx-auto max-w-5xl px-6 py-12 md:py-20">
         <div className="reveal">
           <span className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--accent)]">
             О мероприятии
@@ -202,7 +202,7 @@ export default function Home() {
         </div>
 
         {/* Stats */}
-        <div className="reveal mt-10 md:mt-16 grid grid-cols-2 gap-3 md:gap-4 md:grid-cols-4">
+        <div className="reveal mt-8 md:mt-12 grid grid-cols-2 gap-3 md:gap-4 md:grid-cols-4">
           {[
             { value: "3", label: "Спикера" },
             { value: "4", label: "Выступления" },
@@ -223,7 +223,7 @@ export default function Home() {
       </section>
 
       {/* ───── СПИКЕРЫ ───── */}
-      <section className="relative z-10 mx-auto max-w-5xl px-6 py-16 md:py-32">
+      <section className="relative z-10 mx-auto max-w-5xl px-6 py-12 md:py-20">
         <div className="reveal">
           <span className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--accent)]">
             Спикеры
@@ -233,11 +233,11 @@ export default function Home() {
           </h2>
         </div>
 
-        <div className="mt-10 md:mt-16 grid gap-4 md:gap-6 md:grid-cols-3">
+        <div className="mt-8 md:mt-12 photo-scroll md:grid-cols-3 md:gap-5">
           {SPEAKERS.map((s, i) => (
             <div
               key={i}
-              className="reveal speaker-card rounded-2xl border border-[var(--border)] bg-[var(--card-bg)] p-5 md:p-8"
+              className="reveal speaker-card w-[80vw] md:w-auto flex-shrink-0 md:flex-shrink-[unset] rounded-2xl border border-[var(--border)] bg-[var(--card-bg)] p-5 md:p-8"
             >
               <div className="mb-4 inline-block rounded-full bg-[var(--accent)]/10 px-3 py-1 text-xs font-medium text-[var(--accent)]">
                 {s.time}
@@ -254,7 +254,7 @@ export default function Home() {
       </section>
 
       {/* ───── ПРОГРАММА (Timeline) ───── */}
-      <section className="relative z-10 mx-auto max-w-3xl px-6 py-16 md:py-32">
+      <section className="relative z-10 mx-auto max-w-3xl px-6 py-12 md:py-20">
         <div className="reveal">
           <span className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--accent)]">
             Программа
@@ -264,7 +264,7 @@ export default function Home() {
           </h2>
         </div>
 
-        <div className="reveal mt-10 md:mt-16 relative">
+        <div className="reveal mt-8 md:mt-12 relative">
           {/* Vertical line */}
           <div className="absolute left-[19px] top-2 bottom-2 w-px bg-gradient-to-b from-[var(--accent)] via-[var(--border)] to-transparent" />
 
@@ -287,7 +287,7 @@ export default function Home() {
       </section>
 
       {/* ───── ДРЕСС-КОД ───── */}
-      <section className="relative z-10 mx-auto max-w-6xl px-6 py-16 md:py-32">
+      <section className="relative z-10 mx-auto max-w-6xl px-6 py-12 md:py-20">
         <div className="reveal">
           <span className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--accent)]">
             Дресс-код
@@ -298,7 +298,7 @@ export default function Home() {
         </div>
 
         {/* Men */}
-        <div className="reveal mt-10 md:mt-16">
+        <div className="reveal mt-8 md:mt-12">
           <div className="flex items-center gap-3 mb-6">
             <div className="h-px flex-1 bg-[var(--border)]" />
             <h3 className="font-['Syne'] text-lg md:text-xl font-bold uppercase tracking-wider">Мужчинам</h3>
@@ -307,22 +307,22 @@ export default function Home() {
           <p className="text-center text-sm md:text-base text-zinc-400 mb-6 md:mb-8 max-w-lg mx-auto">
             Пиджак с рубашкой, галстук по желанию. Нарядный, но не официальный — фестивальный дух.
           </p>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
+          <div className="photo-scroll md:grid-cols-3 md:gap-4">
             {[
               { src: "/dresscode/man-blazer.jpg", label: "Пиджак + рубашка" },
               { src: "/dresscode/man-shirt.jpg", label: "Smart casual" },
               { src: "/dresscode/man-smart.jpg", label: "Элегантный стиль" },
             ].map((item, i) => (
-              <div key={i} className="group relative h-[220px] sm:h-[320px] md:h-[380px] overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card-bg)]">
+              <div key={i} className="group relative w-[70vw] md:w-auto h-[280px] md:h-[360px] overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card-bg)]">
                 <Image
                   src={item.src}
                   alt={item.label}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  sizes="(max-width: 640px) 100vw, 33vw"
+                  sizes="(max-width: 768px) 70vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-5">
+                <div className="absolute bottom-0 left-0 right-0 p-4">
                   <span className="inline-block rounded-full border border-[var(--accent)]/40 bg-black/60 px-3 py-1 text-xs font-medium text-[var(--accent)] backdrop-blur-sm">
                     {item.label}
                   </span>
@@ -333,7 +333,7 @@ export default function Home() {
         </div>
 
         {/* Women */}
-        <div className="reveal mt-10 md:mt-16">
+        <div className="reveal mt-10 md:mt-12">
           <div className="flex items-center gap-3 mb-6">
             <div className="h-px flex-1 bg-[var(--border)]" />
             <h3 className="font-['Syne'] text-lg md:text-xl font-bold uppercase tracking-wider">Женщинам</h3>
@@ -342,22 +342,22 @@ export default function Home() {
           <p className="text-center text-sm md:text-base text-zinc-400 mb-6 md:mb-8 max-w-lg mx-auto">
             Элегантный верх с юбкой/брюками или коктейльное платье. Спортивный стиль — нет, sport-casual — допустим.
           </p>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
+          <div className="photo-scroll md:grid-cols-3 md:gap-4">
             {[
               { src: "/dresscode/woman-dress.jpg", label: "Коктейльное платье" },
               { src: "/dresscode/woman-elegant.jpg", label: "Элегантный образ" },
               { src: "/dresscode/woman-smart.jpg", label: "Smart casual" },
             ].map((item, i) => (
-              <div key={i} className="group relative h-[220px] sm:h-[320px] md:h-[380px] overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card-bg)]">
+              <div key={i} className="group relative w-[70vw] md:w-auto h-[280px] md:h-[360px] overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card-bg)]">
                 <Image
                   src={item.src}
                   alt={item.label}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  sizes="(max-width: 640px) 100vw, 33vw"
+                  sizes="(max-width: 768px) 70vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-5">
+                <div className="absolute bottom-0 left-0 right-0 p-4">
                   <span className="inline-block rounded-full border border-[var(--accent)]/40 bg-black/60 px-3 py-1 text-xs font-medium text-[var(--accent)] backdrop-blur-sm">
                     {item.label}
                   </span>
@@ -375,7 +375,7 @@ export default function Home() {
       </section>
 
       {/* ───── ПЛОЩАДКА ───── */}
-      <section className="relative z-10 mx-auto max-w-5xl px-6 py-16 md:py-32">
+      <section className="relative z-10 mx-auto max-w-5xl px-6 py-12 md:py-20">
         <div className="reveal">
           <span className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--accent)]">
             Площадка
@@ -411,7 +411,7 @@ export default function Home() {
       </section>
 
       {/* ───── ФОТОГРАФИИ ───── */}
-      <section className="relative z-10 mx-auto max-w-6xl px-6 py-16 md:py-32">
+      <section className="relative z-10 mx-auto max-w-6xl px-6 py-12 md:py-20">
         <div className="reveal">
           <span className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--accent)]">
             Фотографии
@@ -421,18 +421,19 @@ export default function Home() {
           </h2>
         </div>
 
-        <div className="reveal mt-10 md:mt-16 grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-4 auto-rows-[150px] sm:auto-rows-[200px] lg:auto-rows-[250px]">
+        {/* Mobile: horizontal scroll / Desktop: grid */}
+        <div className="reveal mt-10 md:mt-12 photo-scroll md:grid-cols-4 md:gap-3 md:auto-rows-[220px]">
           {PHOTOS.map((photo, i) => (
             <div
               key={i}
-              className={`group relative overflow-hidden rounded-xl md:rounded-2xl border border-[var(--border)] bg-[var(--card-bg)] transition-all hover:border-[var(--accent)]/50 ${photo.span}`}
+              className={`group relative w-[65vw] md:w-auto h-[200px] md:h-auto overflow-hidden rounded-xl md:rounded-2xl border border-[var(--border)] bg-[var(--card-bg)] transition-all hover:border-[var(--accent)]/50 ${photo.span}`}
             >
               <Image
                 src={photo.src}
                 alt={photo.alt}
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                sizes="(max-width: 768px) 65vw, 25vw"
               />
             </div>
           ))}

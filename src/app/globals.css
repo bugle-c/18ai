@@ -110,3 +110,33 @@ body {
 .timeline-dot {
   box-shadow: 0 0 12px var(--accent);
 }
+
+/* Horizontal scroll strip on mobile */
+.photo-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 8px;
+  scrollbar-width: none;
+}
+.photo-scroll::-webkit-scrollbar {
+  display: none;
+}
+.photo-scroll > * {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .photo-scroll {
+    display: grid;
+    overflow: visible;
+    scroll-snap-type: none;
+    padding-bottom: 0;
+  }
+  .photo-scroll > * {
+    flex-shrink: unset;
+  }
+}
