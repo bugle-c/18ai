@@ -47,12 +47,18 @@ const SCHEDULE = [
 ];
 
 const PHOTOS = [
-  { src: "/photos/group.jpg", alt: "Общее фото участников конференции", caption: "Участники «Навстречу к AI»" },
-  { src: "/photos/pasha-speaking.jpg", alt: "Паша Вин выступает на сцене", caption: "Паша Вин — введение в нейросети" },
-  { src: "/photos/online-speakers.jpg", alt: "Онлайн-выступление Санжара и Тимура", caption: "Санжар и Тимур — Midjourney + ChatGPT" },
-  { src: "/photos/midjourney-talk.jpg", alt: "Презентация про MidJourney промпты", caption: "Контент-план от ChatGPT для MidJourney" },
-  { src: "/photos/filipp-speaking.jpg", alt: "Филипп Воронин выступает", caption: "Филипп Воронин — практикум ChatGPT" },
-  { src: "/photos/workshop.jpg", alt: "Воркшоп на конференции", caption: "Воркшоп и нетворкинг" },
+  { src: "/photos/03-pasha-mic-hero.jpg", alt: "Паша Вин с микрофоном на фоне AI-арта", caption: "Паша Вин — организатор конференции", span: "lg:col-span-2 lg:row-span-2" },
+  { src: "/photos/09-group-fun.jpg", alt: "Групповое фото участников — энергичное", caption: "Участники «Навстречу к AI» 🤘", span: "lg:col-span-2" },
+  { src: "/photos/02-midjourney-presentation.jpg", alt: "Презентация MidJourney с аудиторией", caption: "Санжар и Тимур — MidJourney + ChatGPT", span: "" },
+  { src: "/photos/04-pasha-closeup.jpg", alt: "Паша Вин крупным планом с микрофоном", caption: "Введение в нейросети", span: "" },
+  { src: "/photos/11-filipp-speaking.jpg", alt: "Филипп Воронин выступает на сцене", caption: "Филипп Воронин — практикум ChatGPT", span: "" },
+  { src: "/photos/07-pasha-full-stage.jpg", alt: "Паша Вин на сцене — полный вид", caption: "Площадка Калибр — сцена конференции", span: "lg:col-span-2" },
+  { src: "/photos/12-filipp-audience.jpg", alt: "Филипп Воронин выступает перед аудиторией", caption: "Воркшоп по ChatGPT — зал слушает", span: "" },
+  { src: "/photos/06-pasha-profile.jpg", alt: "Паша Вин — профиль", caption: "Спикер в деле", span: "" },
+  { src: "/photos/01-pasha-stage-art.jpg", alt: "Паша Вин на сцене с AI-артом на экране", caption: "AI-арт и нейросети на большом экране", span: "" },
+  { src: "/photos/05-pasha-speaking.jpg", alt: "Паша Вин выступает", caption: "О видах нейросетей и их применении", span: "" },
+  { src: "/photos/10-group-classic.jpg", alt: "Групповое фото участников — классическое", caption: "Команда конференции", span: "lg:col-span-2" },
+  { src: "/photos/08-pasha-stage-angle.jpg", alt: "Паша Вин на сцене — другой ракурс", caption: "«Навстречу к AI» — полный зал", span: "" },
 ];
 
 export default function Home() {
@@ -375,24 +381,26 @@ export default function Home() {
           </h2>
         </div>
 
-        <div className="reveal mt-16 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="reveal mt-16 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 auto-rows-[250px]">
           {PHOTOS.map((photo, i) => (
             <button
               key={i}
               onClick={() => setLightbox(i)}
-              className="group relative aspect-[4/3] overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card-bg)] transition-all hover:border-[var(--accent)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/50"
+              className={`group relative overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card-bg)] transition-all hover:border-[var(--accent)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/50 ${photo.span}`}
             >
               <Image
                 src={photo.src}
                 alt={photo.alt}
                 fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-              <p className="absolute bottom-4 left-4 right-4 text-sm font-medium text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                {photo.caption}
-              </p>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                <p className="text-sm font-medium text-white drop-shadow-lg">
+                  {photo.caption}
+                </p>
+              </div>
             </button>
           ))}
         </div>
