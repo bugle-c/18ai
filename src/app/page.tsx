@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
@@ -47,23 +47,39 @@ const SCHEDULE = [
 ];
 
 const PHOTOS = [
-  { src: "/photos/03-pasha-mic-hero.jpg", alt: "Паша Вин с микрофоном на фоне AI-арта", caption: "Паша Вин — организатор конференции", span: "lg:col-span-2 lg:row-span-2" },
-  { src: "/photos/09-group-fun.jpg", alt: "Групповое фото участников — энергичное", caption: "Участники «Навстречу к AI» 🤘", span: "lg:col-span-2" },
-  { src: "/photos/02-midjourney-presentation.jpg", alt: "Презентация MidJourney с аудиторией", caption: "Санжар и Тимур — MidJourney + ChatGPT", span: "" },
-  { src: "/photos/04-pasha-closeup.jpg", alt: "Паша Вин крупным планом с микрофоном", caption: "Введение в нейросети", span: "" },
-  { src: "/photos/11-filipp-speaking.jpg", alt: "Филипп Воронин выступает на сцене", caption: "Филипп Воронин — практикум ChatGPT", span: "" },
-  { src: "/photos/07-pasha-full-stage.jpg", alt: "Паша Вин на сцене — полный вид", caption: "Площадка Калибр — сцена конференции", span: "lg:col-span-2" },
-  { src: "/photos/12-filipp-audience.jpg", alt: "Филипп Воронин выступает перед аудиторией", caption: "Воркшоп по ChatGPT — зал слушает", span: "" },
-  { src: "/photos/06-pasha-profile.jpg", alt: "Паша Вин — профиль", caption: "Спикер в деле", span: "" },
-  { src: "/photos/01-pasha-stage-art.jpg", alt: "Паша Вин на сцене с AI-артом на экране", caption: "AI-арт и нейросети на большом экране", span: "" },
-  { src: "/photos/05-pasha-speaking.jpg", alt: "Паша Вин выступает", caption: "О видах нейросетей и их применении", span: "" },
-  { src: "/photos/10-group-classic.jpg", alt: "Групповое фото участников — классическое", caption: "Команда конференции", span: "lg:col-span-2" },
-  { src: "/photos/08-pasha-stage-angle.jpg", alt: "Паша Вин на сцене — другой ракурс", caption: "«Навстречу к AI» — полный зал", span: "" },
+  { src: "/photos/01-pasha-hero.jpg", alt: "Паша Вин с микрофоном на сцене", caption: "Паша Вин — организатор конференции", span: "sm:col-span-2 sm:row-span-2" },
+  { src: "/photos/04-audience-wide.jpg", alt: "Зал конференции — вид со стороны аудитории", caption: "Полный зал на площадке Калибр", span: "sm:col-span-2" },
+  { src: "/photos/02-pasha-profile.jpg", alt: "Паша Вин — вид в профиль на сцене", caption: "Спикер в деле", span: "" },
+  { src: "/photos/03-filipp-stage.jpg", alt: "Филипп Воронин выступает с презентацией", caption: "Филипп Воронин — практикум ChatGPT", span: "" },
+  { src: "/photos/05-midjourney-talk.jpg", alt: "Презентация MidJourney контент-плана", caption: "MidJourney + ChatGPT: генерация промптов", span: "" },
+  { src: "/photos/07-pasha-ai-art.jpg", alt: "Паша Вин на сцене с AI-артом на экране", caption: "AI-арт и нейросети на большом экране", span: "" },
+  { src: "/photos/06-group-photo.jpg", alt: "Групповое фото всех участников конференции", caption: "Участники «Навстречу к AI» 🤘", span: "sm:col-span-2" },
+  { src: "/photos/08-filipp-audience.jpg", alt: "Филипп Воронин выступает перед аудиторией", caption: "Воркшоп по ChatGPT — зал слушает", span: "sm:col-span-2" },
 ];
 
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
+  const [lightbox, setLightbox] = useState<number | null>(null);
+
+  const closeLightbox = useCallback(() => setLightbox(null), []);
+  const prevPhoto = useCallback(() => setLightbox((p) => (p !== null ? (p - 1 + PHOTOS.length) % PHOTOS.length : null)), []);
+  const nextPhoto = useCallback(() => setLightbox((p) => (p !== null ? (p + 1) % PHOTOS.length : null)), []);
+
+  useEffect(() => {
+    if (lightbox === null) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") prevPhoto();
+      if (e.key === "ArrowRight") nextPhoto();
+    };
+    window.addEventListener("keydown", handleKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", handleKey);
+      document.body.style.overflow = "";
+    };
+  }, [lightbox, closeLightbox, prevPhoto, nextPhoto]);
 
   useEffect(() => {
     // Hero text animation
@@ -421,24 +437,69 @@ export default function Home() {
           </h2>
         </div>
 
-        {/* Mobile: horizontal scroll / Desktop: grid */}
-        <div className="reveal mt-10 md:mt-12 photo-scroll md:grid-cols-4 md:gap-3 md:auto-rows-[220px]">
+        <div className="reveal mt-10 md:mt-16 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 auto-rows-[280px]">
           {PHOTOS.map((photo, i) => (
-            <div
+            <button
               key={i}
-              className={`group relative w-[65vw] md:w-auto h-[200px] md:h-auto overflow-hidden rounded-xl md:rounded-2xl border border-[var(--border)] bg-[var(--card-bg)] transition-all hover:border-[var(--accent)]/50 ${photo.span}`}
+              onClick={() => setLightbox(i)}
+              className={`group relative overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card-bg)] transition-all hover:border-[var(--accent)]/50 focus:outline-none ${photo.span}`}
             >
               <Image
                 src={photo.src}
                 alt={photo.alt}
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
-                sizes="(max-width: 768px) 65vw, 25vw"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
               />
-            </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <p className="absolute bottom-4 left-4 right-4 text-sm font-medium text-white translate-y-2 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 drop-shadow-lg">
+                {photo.caption}
+              </p>
+            </button>
           ))}
         </div>
       </section>
+
+      {/* ───── LIGHTBOX ───── */}
+      {lightbox !== null && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
+          onClick={closeLightbox}
+        >
+          <button
+            onClick={(e) => { e.stopPropagation(); prevPhoto(); }}
+            className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-black/50 p-3 text-white transition-colors hover:bg-white/10 z-10"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button
+            onClick={(e) => { e.stopPropagation(); nextPhoto(); }}
+            className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-black/50 p-3 text-white transition-colors hover:bg-white/10 z-10"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+          <button
+            onClick={closeLightbox}
+            className="absolute top-4 right-4 rounded-full border border-white/20 bg-black/50 p-3 text-white transition-colors hover:bg-white/10 z-10"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+          <div className="relative max-h-[85vh] max-w-[90vw]" onClick={(e) => e.stopPropagation()}>
+            <Image
+              src={PHOTOS[lightbox].src}
+              alt={PHOTOS[lightbox].alt}
+              width={1200}
+              height={900}
+              className="max-h-[85vh] w-auto rounded-lg object-contain"
+              priority
+            />
+            <p className="mt-4 text-center text-sm text-zinc-400">
+              {PHOTOS[lightbox].caption}
+              <span className="ml-2 text-zinc-600">{lightbox + 1} / {PHOTOS.length}</span>
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* ───── FOOTER ───── */}
       <footer className="relative z-10 border-t border-[var(--border)] py-12 text-center">
