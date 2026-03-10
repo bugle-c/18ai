@@ -307,7 +307,7 @@ export default function Home() {
       </section>
 
       {/* ───── ДРЕСС-КОД ───── */}
-      <section className="relative z-10 mx-auto max-w-5xl px-6 py-32">
+      <section className="relative z-10 mx-auto max-w-6xl px-6 py-32">
         <div className="reveal">
           <span className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--accent)]">
             Дресс-код
@@ -315,22 +315,82 @@ export default function Home() {
           <h2 className="mt-4 font-['Syne'] text-4xl font-bold md:text-5xl">
             Фестивальный стиль
           </h2>
-          <div className="mt-8 grid gap-6 md:grid-cols-2">
-            <div className="rounded-2xl border border-[var(--border)] bg-[var(--card-bg)] p-8">
-              <h3 className="font-['Syne'] text-lg font-bold">Мужчинам</h3>
-              <p className="mt-3 text-zinc-400 leading-relaxed">
-                Пиджак с рубашкой, галстук по желанию. Нарядный, но не
-                официальный — фестивальный дух.
-              </p>
-            </div>
-            <div className="rounded-2xl border border-[var(--border)] bg-[var(--card-bg)] p-8">
-              <h3 className="font-['Syne'] text-lg font-bold">Женщинам</h3>
-              <p className="mt-3 text-zinc-400 leading-relaxed">
-                Элегантный верх с юбкой/брюками или коктейльное платье.
-                Спортивный стиль — нет, sport-casual — допустим.
-              </p>
-            </div>
+        </div>
+
+        {/* Men */}
+        <div className="reveal mt-16">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="h-px flex-1 bg-[var(--border)]" />
+            <h3 className="font-['Syne'] text-xl font-bold uppercase tracking-wider">Мужчинам</h3>
+            <div className="h-px flex-1 bg-[var(--border)]" />
           </div>
+          <p className="text-center text-zinc-400 mb-8 max-w-lg mx-auto">
+            Пиджак с рубашкой, галстук по желанию. Нарядный, но не официальный — фестивальный дух.
+          </p>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            {[
+              { src: "/dresscode/man-blazer.jpg", label: "Пиджак + рубашка" },
+              { src: "/dresscode/man-shirt.jpg", label: "Smart casual" },
+              { src: "/dresscode/man-smart.jpg", label: "Элегантный стиль" },
+            ].map((item, i) => (
+              <div key={i} className="group relative h-[380px] overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card-bg)]">
+                <Image
+                  src={item.src}
+                  alt={item.label}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-5">
+                  <span className="inline-block rounded-full border border-[var(--accent)]/40 bg-black/60 px-3 py-1 text-xs font-medium text-[var(--accent)] backdrop-blur-sm">
+                    {item.label}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Women */}
+        <div className="reveal mt-16">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="h-px flex-1 bg-[var(--border)]" />
+            <h3 className="font-['Syne'] text-xl font-bold uppercase tracking-wider">Женщинам</h3>
+            <div className="h-px flex-1 bg-[var(--border)]" />
+          </div>
+          <p className="text-center text-zinc-400 mb-8 max-w-lg mx-auto">
+            Элегантный верх с юбкой/брюками или коктейльное платье. Спортивный стиль — нет, sport-casual — допустим.
+          </p>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            {[
+              { src: "/dresscode/woman-dress.jpg", label: "Коктейльное платье" },
+              { src: "/dresscode/woman-elegant.jpg", label: "Элегантный образ" },
+              { src: "/dresscode/woman-smart.jpg", label: "Smart casual" },
+            ].map((item, i) => (
+              <div key={i} className="group relative h-[380px] overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card-bg)]">
+                <Image
+                  src={item.src}
+                  alt={item.label}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-5">
+                  <span className="inline-block rounded-full border border-[var(--accent)]/40 bg-black/60 px-3 py-1 text-xs font-medium text-[var(--accent)] backdrop-blur-sm">
+                    {item.label}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* No-go hint */}
+        <div className="reveal mt-12 flex items-center justify-center gap-3 text-sm text-zinc-600">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-red-500/60"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93l14.14 14.14"/></svg>
+          <span>Спортивная одежда, кроссовки, шорты — не подходят</span>
         </div>
       </section>
 
