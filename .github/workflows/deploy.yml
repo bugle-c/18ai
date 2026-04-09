@@ -42,15 +42,16 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Update image tag and deploy
+      - name: Deploy to VPS
+        env:
+          SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          SERVICE_NAME: ${{ secrets.DOKPLOY_SERVICE_NAME }}
         run: |
-          # Update Dokploy app to use SHA-tagged image (forces fresh pull)
-          curl -sf -X POST "${{ secrets.DOKPLOY_URL }}/api/application.update" \
-            -H "x-api-key: ${{ secrets.DOKPLOY_API_KEY }}" \
-            -H "Content-Type: application/json" \
-            -d "{\"applicationId\":\"${{ secrets.DOKPLOY_APP_ID }}\",\"dockerImage\":\"ghcr.io/${{ github.repository }}:${{ github.sha }}\"}"
-          # Trigger deploy with new unique tag
-          curl -sf -X POST "${{ secrets.DOKPLOY_URL }}/api/application.deploy" \
-            -H "x-api-key: ${{ secrets.DOKPLOY_API_KEY }}" \
-            -H "Content-Type: application/json" \
-            -d '{"applicationId":"${{ secrets.DOKPLOY_APP_ID }}"}'
+          mkdir -p ~/.ssh
+          echo "$SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H $VPS_HOST >> ~/.ssh/known_hosts 2>/dev/null
+          IMAGE="ghcr.io/${{ github.repository }}:latest"
+          ssh -i ~/.ssh/deploy_key root@$VPS_HOST \
+            "docker pull $IMAGE && docker service update --force --image $IMAGE $SERVICE_NAME"
