@@ -52,6 +52,9 @@ jobs:
           echo "$SSH_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -H $VPS_HOST >> ~/.ssh/known_hosts 2>/dev/null
+          SSH_OPTS="-i ~/.ssh/deploy_key -o ServerAliveInterval=15 -o ServerAliveCountMax=20 -o ConnectTimeout=10"
           IMAGE="ghcr.io/${{ github.repository }}:latest"
-          ssh -i ~/.ssh/deploy_key root@$VPS_HOST \
-            "docker pull $IMAGE && docker service update --force --image $IMAGE $SERVICE_NAME"
+          # Pull new image (may take a few minutes on first deploy)
+          ssh $SSH_OPTS root@$VPS_HOST "docker pull $IMAGE"
+          # Force service to use freshly pulled image
+          ssh $SSH_OPTS root@$VPS_HOST "docker service update --force --image $IMAGE $SERVICE_NAME"
