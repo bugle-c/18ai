@@ -42,8 +42,14 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Deploy to Dokploy
+      - name: Update image tag and deploy
         run: |
+          # Update Dokploy app to use SHA-tagged image (forces fresh pull)
+          curl -sf -X POST "${{ secrets.DOKPLOY_URL }}/api/application.update" \
+            -H "x-api-key: ${{ secrets.DOKPLOY_API_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"applicationId\":\"${{ secrets.DOKPLOY_APP_ID }}\",\"dockerImage\":\"ghcr.io/${{ github.repository }}:${{ github.sha }}\"}"
+          # Trigger deploy with new unique tag
           curl -sf -X POST "${{ secrets.DOKPLOY_URL }}/api/application.deploy" \
             -H "x-api-key: ${{ secrets.DOKPLOY_API_KEY }}" \
             -H "Content-Type: application/json" \
